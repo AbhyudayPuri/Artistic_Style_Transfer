@@ -83,6 +83,11 @@ class VGG19:
 		print("Build model complete!")
 
 
+def loss_content():
+
+	
+
+
 
 	def max_pool(self, bottom, name):
 		return tf.nn.max_pool(bottom, ksize=[1,2,2,1], strides=[1,2,2,1], padding='SAME', name=name)
