@@ -1,10 +1,12 @@
 import tensorflow as tf 
-import numpy as np
+import numpy as np 
+
+VGG_MEAN = [103.939, 116.779, 123.68]
 
 class VGG19: 
 	def __init__(self):
 		# Loading the pre-trained weights into a dict
-		self.weights_dict = np.load('vgg19.npy')
+		self.weights_dict = np.load('vgg19.npy', encoding = 'latin1').item()
 		print("Weights loaded")
 
 	def build(self, rgb):
@@ -16,14 +18,16 @@ class VGG19:
 		print("Build model started")
 
 		# Convert RGB to BGR
-		red, green, blue = tf.split(axis = 3, num_splits = 3, value = rgb)
+		red, green, blue = tf.split(axis = 3, num_or_size_splits = 3, value = rgb)
 		assert red.get_shape().as_list()[1:] == [224,224,1]
 		assert green.get_shape().as_list()[1:] == [224,224,1]
 		assert blue.get_shape().as_list()[1:] == [224,224,1]
 
-		bgr = tf.concat(axis = 3, values = [blue, green, red])
+		bgr = tf.concat(axis = 3, values = [red - VGG_MEAN[2],
+											green - VGG_MEAN[1],
+											blue - VGG_MEAN[0]])
 
-		assert bgr.get_shape().as_list()[1,:] == [224,224,3]
+		assert bgr.get_shape().as_list()[1:] == [224,224,3]
 
 		# Creating the layers of the network
 		self.conv1_1 = self.conv_layer(bgr, "conv1_1")
@@ -83,11 +87,6 @@ class VGG19:
 		print("Build model complete!")
 
 
-def loss_content():
-
-	
-
-
 
 	def max_pool(self, bottom, name):
 		return tf.nn.max_pool(bottom, ksize=[1,2,2,1], strides=[1,2,2,1], padding='SAME', name=name)
@@ -113,11 +112,10 @@ def loss_content():
 			dim = 1
 			for d in shape[1:]:
 				dim *= d
-			x = tf.reshape(bottom, [-1 dim])
+			x = tf.reshape(bottom, [-1, dim])
 
 			weights = tf.constant(self.weights_dict[name][0], name = "weights")
-			bias = tf.constant(self.weights_dict[name][1], name = "biases")
+			biases = tf.constant(self.weights_dict[name][1], name = "biases")
 
 			fc = tf.nn.bias_add(tf.matmul(x, weights), biases)
 			return fc
-
