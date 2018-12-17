@@ -3,5 +3,10 @@ be in the same folder as the code in order to run the program. To run the code, 
 
 You can change the content and style image by giving the paths to the desired files in the style.py file. 
 
--vgg19_style file contains the code for loading the parameters of the pre-trained network. 
--utils.py contains the code for reading and resizing the input image, and computing the Gram Matrix of the feature map.
+1) vgg19_style file contains the code for loading the parameters of the pre-trained network. 
+2) utils.py contains the code for reading and resizing the input image, and computing the Gram Matrix of the feature map.
+
+A sample output of our code: 
+<img src=".png"
+     alt="Markdown Monster icon"
+     style="float: left; margin-right: 10px;" />
