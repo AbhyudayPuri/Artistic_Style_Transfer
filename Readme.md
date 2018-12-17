@@ -8,4 +8,4 @@ You can change the content and style image by giving the paths to the desired fi
 
 A sample output of our code: 
 <br>
-<img src="output.png" alt="Output Image" />
+<img src="output.png" alt="Output Image" class="Center"/>
