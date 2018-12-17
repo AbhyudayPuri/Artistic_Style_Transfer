@@ -7,6 +7,4 @@ You can change the content and style image by giving the paths to the desired fi
 2) utils.py contains the code for reading and resizing the input image, and computing the Gram Matrix of the feature map.
 
 A sample output of our code: 
-<img src="output.png"
-     alt="Markdown Monster icon"
-     style="float: left; margin-right: 10px;" />
+<img src="output.png" alt="Output Image" />
